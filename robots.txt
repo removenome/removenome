@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://removenome.com.br/sitemap.xml
