@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remove Nome — Solicitar Análise Gratuita</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f4ff;min-height:100vh}
+
+/* HEADER */
+.rn-header{background:linear-gradient(135deg,#0f2a7a,#1a3faa);padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.rn-header img{height:48px}
+.rn-header a{color:rgba(255,255,255,0.7);font-size:13px;text-decoration:none;display:flex;align-items:center;gap:6px}
+
+/* HERO */
+.rn-hero{background:linear-gradient(135deg,#0f2a7a,#1a3faa);padding:1.5rem 1.5rem 2.5rem;text-align:center}
+.rn-hero h1{font-size:1.6rem;font-weight:800;color:#fff;margin-bottom:0.5rem}
+.rn-hero p{font-size:14px;color:rgba(255,255,255,0.75);max-width:480px;margin:0 auto}
+
+/* CONTAINER */
+.rn-container{max-width:700px;margin:-1.5rem auto 2rem;padding:0 1rem}
+
+/* PROGRESSO */
+.progress-bar{background:#fff;border-radius:16px 16px 0 0;padding:1.25rem 1.5rem 0;box-shadow:0 2px 20px rgba(0,0,0,0.1)}
+.progress-steps{display:flex;align-items:center;gap:0;margin-bottom:1rem}
+.p-step{display:flex;flex-direction:column;align-items:center;flex:1;position:relative}
+.p-step-circle{width:32px;height:32px;border-radius:50%;background:#e8edf8;color:#999;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all 0.3s;z-index:1}
+.p-step.active .p-step-circle{background:#1a3faa;color:#fff}
+.p-step.done .p-step-circle{background:#F5C200;color:#1a3faa}
+.p-step-label{font-size:10px;color:#aaa;margin-top:4px;text-align:center;font-weight:500}
+.p-step.active .p-step-label{color:#1a3faa;font-weight:700}
+.p-step.done .p-step-label{color:#F5C200}
+.p-line{flex:1;height:2px;background:#e8edf8;margin-top:-16px}
+.p-line.done{background:#F5C200}
+
+/* CARD */
+.rn-card{background:#fff;border-radius:0 0 16px 16px;padding:1.5rem;box-shadow:0 2px 20px rgba(0,0,0,0.1)}
+
+/* STEP */
+.step{display:none}
+.step.active{display:block}
+
+/* SERVIÇOS */
+.servicos-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.servico-card{border:2px solid #e8edf8;border-radius:12px;padding:1rem;cursor:pointer;transition:all 0.2s;text-align:center}
+.servico-card:hover{border-color:#1a3faa;background:#f0f4ff}
+.servico-card.selected{border-color:#1a3faa;background:#f0f4ff}
+.servico-card i{font-size:24px;color:#1a3faa;margin-bottom:0.5rem;display:block}
+.servico-card h3{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:3px}
+.servico-card p{font-size:11px;color:#888;line-height:1.4}
+
+/* DOR — sensibilização */
+.dor-box{background:linear-gradient(135deg,#0f2a7a,#1a3faa);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem;color:#fff}
+.dor-box h3{font-size:16px;font-weight:800;margin-bottom:0.75rem;color:#F5C200}
+.dor-box ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.dor-box ul li{font-size:13px;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.dor-box ul li i{color:#F5C200;flex-shrink:0;margin-top:2px}
+
+/* FORM */
+.rn-label{display:block;font-size:12px;color:#666;margin-bottom:5px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+.rn-input,.rn-select,.rn-textarea{width:100%;padding:12px 14px;border:1.5px solid #e0e4f0;border-radius:10px;font-size:15px;font-family:inherit;outline:none;color:#1a1a2e;background:#f9fafc;transition:all 0.2s;margin-bottom:0.9rem}
+.rn-input:focus,.rn-select:focus,.rn-textarea:focus{border-color:#1a3faa;background:#fff;box-shadow:0 0 0 3px rgba(26,63,170,0.08)}
+.rn-textarea{resize:vertical;min-height:80px}
+.rn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rn-group{margin-bottom:0.1rem}
+
+/* RADIO/CHECK */
+.radio-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0.9rem}
+.radio-opt{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1.5px solid #e0e4f0;border-radius:10px;cursor:pointer;font-size:13px;font-weight:500;color:#333;transition:all 0.2s}
+.radio-opt:hover{border-color:#1a3faa}
+.radio-opt input{accent-color:#1a3faa}
+.radio-opt.selected{border-color:#1a3faa;background:#f0f4ff}
+.check-opt{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1.5px solid #e0e4f0;border-radius:10px;cursor:pointer;font-size:13px;color:#333;margin-bottom:8px;transition:all 0.2s}
+.check-opt input{accent-color:#1a3faa;margin-top:2px;flex-shrink:0}
+
+/* ALERTA */
+.alerta{background:#fff8e1;border:1px solid #f5c200;border-radius:10px;padding:1rem;font-size:13px;color:#7b5800;margin-bottom:1rem;display:flex;gap:10px;align-items:flex-start}
+.alerta i{flex-shrink:0;margin-top:2px}
+.alerta-danger{background:#fff3f3;border-color:#f5c6c6;color:#b71c1c}
+
+/* LGPD */
+.lgpd-box{background:#f0f4ff;border:1px solid #c8d4f5;border-radius:12px;padding:1.25rem;margin-bottom:1.25rem}
+.lgpd-box h3{font-size:14px;font-weight:700;color:#1a3faa;margin-bottom:0.75rem;display:flex;align-items:center;gap:8px}
+.lgpd-box p{font-size:12px;color:#555;line-height:1.7;margin-bottom:0.75rem}
+.lgpd-check{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#333;line-height:1.5}
+.lgpd-check input{accent-color:#1a3faa;margin-top:3px;flex-shrink:0;width:16px;height:16px}
+
+/* BOTÕES */
+.btn-next{width:100%;padding:14px;background:#1a3faa;color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;transition:all 0.2s;margin-top:0.5rem}
+.btn-next:hover{background:#1535a0}
+.btn-next:disabled{background:#8fa3d6;cursor:not-allowed}
+.btn-back{width:100%;padding:13px;background:transparent;color:#1a3faa;border:2px solid #1a3faa;border-radius:12px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:all 0.2s;margin-top:0.5rem}
+.btn-back:hover{background:#f0f4ff}
+
+/* SUCESSO */
+.sucesso-box{text-align:center;padding:2rem 1rem}
+.sucesso-icon{font-size:56px;color:#2e7d32;margin-bottom:1rem}
+.sucesso-box h2{font-size:22px;font-weight:800;color:#1a1a2e;margin-bottom:0.75rem}
+.sucesso-box p{font-size:14px;color:#666;line-height:1.7;margin-bottom:1.5rem}
+.btn-whats{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;background:#25D366;color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;text-decoration:none;transition:all 0.2s}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:10px;margin:0.75rem 0;color:#ccc;font-size:12px}
+.divider::before,.divider::after{content:'';flex:1;border-top:1px solid #eee}
+
+/* CONDITIONAL */
+.hidden{display:none!important}
+
+@media(min-width:768px){
+  .rn-hero h1{font-size:2rem}
+  .servicos-grid{grid-template-columns:repeat(3,1fr)}
+  .radio-grid{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="rn-header">
+  <img src="https://raw.githubusercontent.com/removenome/removenome/main/logo.JPG" alt="Remove Nome">
+  <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Voltar ao site</a>
+</div>
+
+<div class="rn-hero">
+  <h1>Solicitar análise gratuita</h1>
+  <p>Preencha o formulário abaixo. Nossa equipe entra em contato pelo WhatsApp em até 24h.</p>
+</div>
+
+<div class="rn-container">
+
+  <!-- PROGRESSO -->
+  <div class="progress-bar">
+    <div class="progress-steps">
+      <div class="p-step active" id="ps1"><div class="p-step-circle">1</div><span class="p-step-label">Serviço</span></div>
+      <div class="p-line" id="pl1"></div>
+      <div class="p-step" id="ps2"><div class="p-step-circle">2</div><span class="p-step-label">Detalhes</span></div>
+      <div class="p-line" id="pl2"></div>
+      <div class="p-step" id="ps3"><div class="p-step-circle">3</div><span class="p-step-label">Seus dados</span></div>
+      <div class="p-line" id="pl3"></div>
+      <div class="p-step" id="ps4"><div class="p-step-circle">4</div><span class="p-step-label">LGPD</span></div>
+    </div>
+  </div>
+
+  <div class="rn-card">
+
+    <!-- STEP 1 — ESCOLHA DO SERVIÇO -->
+    <div class="step active" id="step1">
+      <p style="font-size:14px;color:#888;margin-bottom:1rem">Selecione o serviço que melhor descreve sua necessidade:</p>
+      <div class="servicos-grid">
+        <div class="servico-card" onclick="selecionarServico('Remove Nome CPF',this)">
+          <i class="fa-solid fa-user-shield"></i>
+          <h3>Remove Nome CPF</h3>
+          <p>Remoção de restrições no seu CPF</p>
+        </div>
+        <div class="servico-card" onclick="selecionarServico('Remove Nome CNPJ',this)">
+          <i class="fa-solid fa-building-shield"></i>
+          <h3>Remove Nome CNPJ</h3>
+          <p>Regularização da sua empresa</p>
+        </div>
+        <div class="servico-card" onclick="selecionarServico('Remove Digital',this)">
+          <i class="fa-solid fa-globe"></i>
+          <h3>Remove Digital</h3>
+          <p>Remoção de dados da internet</p>
+        </div>
+        <div class="servico-card" onclick="selecionarServico('Crédito Habitacional',this)">
+          <i class="fa-solid fa-house"></i>
+          <h3>Crédito Habitacional</h3>
+          <p>Financiamento para seu imóvel</p>
+        </div>
+        <div class="servico-card" onclick="selecionarServico('Crédito Veicular',this)">
+          <i class="fa-solid fa-car"></i>
+          <h3>Crédito Veicular</h3>
+          <p>Financiamento de veículo</p>
+        </div>
+        <div class="servico-card" onclick="selecionarServico('Crédito Empresarial',this)">
+          <i class="fa-solid fa-briefcase"></i>
+          <h3>Crédito Empresarial</h3>
+          <p>Crédito para sua empresa crescer</p>
+        </div>
+      </div>
+      <button class="btn-next" id="btnStep1" onclick="irStep(2)" disabled>Continuar <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+
+    <!-- STEP 2 — DETALHES DO SERVIÇO -->
+    <div class="step" id="step2">
+      <div id="conteudo-step2"></div>
+      <button class="btn-next" id="btnStep2" onclick="irStep(3)">Continuar <i class="fa-solid fa-arrow-right"></i></button>
+      <button class="btn-back" onclick="irStep(1)"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+    </div>
+
+    <!-- STEP 3 — DADOS PESSOAIS -->
+    <div class="step" id="step3">
+      <div id="conteudo-step3"></div>
+      <button class="btn-next" onclick="irStep(4)">Continuar <i class="fa-solid fa-arrow-right"></i></button>
+      <button class="btn-back" onclick="irStep(2)"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+    </div>
+
+    <!-- STEP 4 — LGPD + ENVIO -->
+    <div class="step" id="step4">
+      <div class="lgpd-box">
+        <h3><i class="fa-solid fa-shield-halved"></i> Autorização e Privacidade — LGPD</h3>
+        <p>Em conformidade com a <strong>Lei Geral de Proteção de Dados (Lei nº 13.709/2018)</strong>, seus dados pessoais serão utilizados exclusivamente para análise e prestação dos serviços solicitados pela <strong>Remove Nome Assessoria e Consultoria</strong> (CNPJ 62.197.923/0001-32).</p>
+        <p>Seus dados poderão ser consultados nos órgãos de proteção ao crédito (SPC, Serasa, Boa Vista) e cartórios de protesto, com fundamento nos arts. 42, 43 e 83 do Código de Defesa do Consumidor, exclusivamente para fins de regularização cadastral.</p>
+        <p>Você tem direito de acesso, correção, portabilidade e exclusão dos seus dados. Para exercer seus direitos, entre em contato pelo <strong>removenomecpf@gmail.com</strong>.</p>
+        <div class="divider">Autorize para continuar</div>
+        <label class="lgpd-check">
+          <input type="checkbox" id="lgpd1" onchange="verificarLGPD()">
+          <span>Autorizo a <strong>Remove Nome</strong> a coletar, armazenar e tratar meus dados pessoais para fins de análise e prestação dos serviços solicitados, conforme a LGPD.</span>
+        </label>
+        <br>
+        <label class="lgpd-check">
+          <input type="checkbox" id="lgpd2" onchange="verificarLGPD()">
+          <span>Autorizo expressamente a consulta do meu <strong>CPF/CNPJ</strong> nos órgãos de proteção ao crédito (SPC, Serasa, Boa Vista) e cartórios de protesto para identificação de restrições cadastrais.</span>
+        </label>
+        <br>
+        <label class="lgpd-check">
+          <input type="checkbox" id="lgpd3" onchange="verificarLGPD()">
+          <span>Declaro ter lido e concordar com os termos acima, estando ciente de que posso revogar este consentimento a qualquer momento.</span>
+        </label>
+      </div>
+      <button class="btn-next" id="btnEnviar" onclick="enviarFormulario()" disabled>
+        <i class="fa-solid fa-paper-plane"></i> Enviar solicitação
+      </button>
+      <button class="btn-back" onclick="irStep(3)"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+    </div>
+
+    <!-- STEP 5 — SUCESSO -->
+    <div class="step" id="step5">
+      <div class="sucesso-box">
+        <div class="sucesso-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <h2>Solicitação enviada!</h2>
+        <p>Recebemos seus dados e nossa equipe entrará em contato pelo <strong>WhatsApp em até 24 horas</strong> para dar início ao seu atendimento.</p>
+        <p>Enquanto isso, você pode acompanhar seu processo pelo <strong>Portal do Cliente</strong> após a formalização do contrato.</p>
+        <a href="https://wa.me/5512981239357" target="_blank" class="btn-whats">
+          <i class="fa-brands fa-whatsapp"></i> Falar agora no WhatsApp
+        </a>
+        <br>
+        <a href="portal.html" class="btn-back" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:0.5rem">
+          <i class="fa-solid fa-right-to-bracket"></i> Acessar Portal do Cliente
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const URL_ATENDIMENTO = 'https://script.google.com/macros/s/AKfycby5PWQqsy264YEU2bPukusquoIHTg4j-MGHnuvBnVOJ65MX7vDK_qhoxm0AOKAqrfnOIQ/exec';
+
+let servicoSelecionado = '';
+let dadosFormulario = {};
+
+function selecionarServico(servico, el) {
+  servicoSelecionado = servico;
+  document.querySelectorAll('.servico-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('btnStep1').disabled = false;
+}
+
+function irStep(n) {
+  if (n === 2 && !servicoSelecionado) { alert('Selecione um serviço.'); return; }
+  if (n === 2) montarStep2();
+  if (n === 3) montarStep3();
+
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step' + n).classList.add('active');
+
+  // Progresso
+  for (let i = 1; i <= 4; i++) {
+    const ps = document.getElementById('ps' + i);
+    const pl = document.getElementById('pl' + i);
+    ps.classList.remove('active', 'done');
+    if (pl) pl.classList.remove('done');
+    if (i < n) { ps.classList.add('done'); if (pl) pl.classList.add('done'); }
+    if (i === n) ps.classList.add('active');
+  }
+  window.scrollTo(0, 0);
+}
+
+function montarStep2() {
+  const c = document.getElementById('conteudo-step2');
+  const s = servicoSelecionado;
+
+  if (s === 'Remove Nome CPF') {
+    c.innerHTML = `
+      <div class="dor-box">
+        <h3>😔 Você se identifica com alguma dessas situações?</h3>
+        <ul>
+          <li><i class="fa-solid fa-circle-xmark"></i> Teve crédito negado em loja, banco ou financeira?</li>
+          <li><i class="fa-solid fa-circle-xmark"></i> Não consegue abrir conta ou usar cartão de crédito?</li>
+          <li><i class="fa-solid fa-circle-xmark"></i> Sente que seu nome negativado limita sua vida?</li>
+          <li><i class="fa-solid fa-circle-check" style="color:#F5C200"></i> A Remove Nome pode ajudar. Prazo de até 21 dias úteis.</li>
+        </ul>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Possui restrições ativas no seu CPF? *</label>
+        <div class="radio-grid">
+          <label class="radio-opt"><input type="radio" name="restricao" value="Sim"> Sim, tenho restrições</label>
+          <label class="radio-opt"><input type="radio" name="restricao" value="Não sei"> Não sei / Quero verificar</label>
+          <label class="radio-opt"><input type="radio" name="restricao" value="Não"> Não tenho</label>
+        </div>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Onde estão as restrições? (pode marcar mais de um)</label>
+        <label class="check-opt"><input type="checkbox" name="orgaos" value="SPC"> SPC Brasil</label>
+        <label class="check-opt"><input type="checkbox" name="orgaos" value="Serasa"> Serasa</label>
+        <label class="check-opt"><input type="checkbox" name="orgaos" value="SCPC Boa Vista"> SCPC Boa Vista</label>
+        <label class="check-opt"><input type="checkbox" name="orgaos" value="Cartório"> Cartório de Protesto</label>
+        <label class="check-opt"><input type="checkbox" name="orgaos" value="Não sei"> Não sei informar</label>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Há quanto tempo está negativado?</label>
+        <select class="rn-select" name="tempo_negativado">
+          <option value="">Selecione</option>
+          <option>Menos de 6 meses</option>
+          <option>6 meses a 1 ano</option>
+          <option>1 a 3 anos</option>
+          <option>Mais de 3 anos</option>
+          <option>Não sei informar</option>
+        </select>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Já tentou resolver antes?</label>
+        <div class="radio-grid">
+          <label class="radio-opt"><input type="radio" name="tentou" value="Sim"> Sim, sem sucesso</label>
+          <label class="radio-opt"><input type="radio" name="tentou" value="Não"> Não tentei ainda</label>
+        </div>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Como ficou sabendo da Remove Nome?</label>
+        <select class="rn-select" name="como_soube">
+          <option value="">Selecione</option>
+          <option>Instagram</option>
+          <option>WhatsApp</option>
+          <option>Indicação de amigo</option>
+          <option>Google</option>
+          <option>Representante autorizado</option>
+          <option>Outro</option>
+        </select>
+      </div>`;
+  }
+
+  else if (s === 'Remove Nome CNPJ') {
+    c.innerHTML = `
+      <div class="dor-box">
+        <h3>🏢 Sua empresa está com restrições?</h3>
+        <ul>
+          <li><i class="fa-solid fa-circle-xmark"></i> CNPJ negativado impedindo crédito e fornecedores?</li>
+          <li><i class="fa-solid fa-circle-xmark"></i> Dificuldade para emitir notas, abrir contas ou participar de licitações?</li>
+          <li><i class="fa-solid fa-circle-check" style="color:#F5C200"></i> Regularizamos seu CNPJ administrativamente.</li>
+        </ul>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Tipo de empresa *</label>
+        <select class="rn-select" name="tipo_empresa">
+          <option value="">Selecione</option>
+          <option>MEI</option>
+          <option>ME — Microempresa</option>
+          <option>EPP — Empresa de Pequeno Porte</option>
+          <option>LTDA</option>
+          <option>SA</option>
+          <option>Outro</option>
+        </select>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Possui restrições ativas no CNPJ? *</label>
+        <div class="radio-grid">
+          <label class="radio-opt"><input type="radio" name="restricao_cnpj" value="Sim"> Sim</label>
+          <label class="radio-opt"><input type="radio" name="restricao_cnpj" value="Não sei"> Não sei</label>
+          <label class="radio-opt"><input type="radio" name="restricao_cnpj" value="Não"> Não</label>
+        </div>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Órgãos com restrição (pode marcar mais de um)</label>
+        <label class="check-opt"><input type="checkbox" name="orgaos_cnpj" value="SPC"> SPC Brasil</label>
+        <label class="check-opt"><input type="checkbox" name="orgaos_cnpj" value="Serasa"> Serasa</label>
+        <label class="check-opt"><input type="checkbox" name="orgaos_cnpj" value="SCPC Boa Vista"> SCPC Boa Vista</label>
+        <label class="check-opt"><input type="checkbox" name="orgaos_cnpj" value="Cartório"> Cartório de Protesto</label>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Como ficou sabendo da Remove Nome?</label>
+        <select class="rn-select" name="como_soube">
+          <option value="">Selecione</option>
+          <option>Instagram</option>
+          <option>WhatsApp</option>
+          <option>Indicação</option>
+          <option>Google</option>
+          <option>Representante autorizado</option>
+          <option>Outro</option>
+        </select>
+      </div>`;
+  }
+
+  else if (s === 'Remove Digital') {
+    c.innerHTML = `
+      <div class="dor-box">
+        <h3>🌐 Seus dados estão expostos na internet?</h3>
+        <ul>
+          <li><i class="fa-solid fa-circle-xmark"></i> Nome, CPF ou endereço aparecendo em sites de busca?</li>
+          <li><i class="fa-solid fa-circle-xmark"></i> Informações em Jusbrasil, Escavador ou sites de dados?</li>
+          <li><i class="fa-solid fa-circle-check" style="color:#F5C200"></i> Removemos seus dados com base na LGPD.</li>
+        </ul>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">O que deseja remover? *</label>
+        <label class="check-opt"><input type="checkbox" name="remover" value="CPF em sites de busca"> CPF ou dados pessoais em sites de busca</label>
+        <label class="check-opt"><input type="checkbox" name="remover" value="Jusbrasil/Escavador"> Processos no Jusbrasil ou Escavador</label>
+        <label class="check-opt"><input type="checkbox" name="remover" value="Sites de dados"> Sites de dados (TudoPorCPF, etc.)</label>
+        <label class="check-opt"><input type="checkbox" name="remover" value="Google"> Links no Google</label>
+        <label class="check-opt"><input type="checkbox" name="remover" value="Outro"> Outro</label>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Urgência</label>
+        <div class="radio-grid">
+          <label class="radio-opt"><input type="radio" name="urgencia" value="Alta"> Alta — preciso resolver logo</label>
+          <label class="radio-opt"><input type="radio" name="urgencia" value="Normal"> Normal</label>
+        </div>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Descreva o que precisa ser removido</label>
+        <textarea class="rn-textarea" name="descricao" placeholder="Ex: meu CPF aparece no site X com meu endereço completo..."></textarea>
+      </div>`;
+  }
+
+  else if (s === 'Crédito Habitacional') {
+    c.innerHTML = `
+      <div class="dor-box">
+        <h3>🏠 Realizar o sonho da casa própria</h3>
+        <ul>
+          <li><i class="fa-solid fa-circle-xmark"></i> Tentou financiamento e foi reprovado?</li>
+          <li><i class="fa-solid fa-circle-xmark"></i> Não sabe se seu perfil se encaixa no Minha Casa Minha Vida?</li>
+          <li><i class="fa-solid fa-circle-check" style="color:#F5C200"></i> Analisamos seu perfil gratuitamente e orientamos o melhor caminho.</li>
+        </ul>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Estado de interesse para compra *</label>
+        <select class="rn-select" name="estado_interesse">
+          <option value="">Selecione</option>
+          <option>São Paulo</option>
+          <option>Minas Gerais</option>
+          <option>Rio de Janeiro</option>
+          <option>Outro</option>
+        </select>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Cidade de interesse *</label>
+        <input class="rn-input" type="text" name="cidade_interesse" placeholder="Ex: Caraguatatuba">
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Forma de pagamento *</label>
+        <label class="check-opt"><input type="checkbox" name="forma_pgto" value="Financiamento + Recurso próprio"> Financiamento + Recurso próprio</label>
+        <label class="check-opt"><input type="checkbox" name="forma_pgto" value="FGTS"> Uso do FGTS</label>
+        <label class="check-opt"><input type="checkbox" name="forma_pgto" value="Minha Casa Minha Vida"> Minha Casa Minha Vida</label>
+        <label class="check-opt"><input type="checkbox" name="forma_pgto" value="Apenas financiamento"> Apenas financiamento</label>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Valor de entrada disponível</label>
+        <input class="rn-input" type="text" name="valor_entrada" placeholder="Ex: R$ 15.000">
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Tem saldo no FGTS?</label>
+        <div class="radio-grid">
+          <label class="radio-opt"><input type="radio" name="tem_fgts" value="Sim" onclick="document.getElementById('campo_fgts').classList.remove('hidden')"> Sim</label>
+          <label class="radio-opt"><input type="radio" name="tem_fgts" value="Não" onclick="document.getElementById('campo_fgts').classList.add('hidden')"> Não</label>
+        </div>
+      </div>
+      <div id="campo_fgts" class="hidden rn-group">
+        <label class="rn-label">Valor aproximado do saldo FGTS</label>
+        <input class="rn-input" type="text" name="saldo_fgts" placeholder="Ex: R$ 8.000">
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Vínculo empregatício *</label>
+        <label class="check-opt"><input type="checkbox" name="vinculo" value="CLT +120 dias"> CLT com mais de 120 dias</label>
+        <label class="check-opt"><input type="checkbox" name="vinculo" value="CLT -120 dias"> CLT com menos de 120 dias</label>
+        <label class="check-opt"><input type="checkbox" name="vinculo" value="Funcionário público"> Funcionário público</label>
+        <label class="check-opt"><input type="checkbox" name="vinculo" value="Autônomo"> Autônomo</label>
+        <label class="check-opt"><input type="checkbox" name="vinculo" value="Empresário"> Empresário — tenho CNPJ</label>
+        <label class="check-opt"><input type="checkbox" name="vinculo" value="Aposentado"> Aposentado(a)</label>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Renda mensal total (sua + cônjuge se houver)</label>
+        <input class="rn-input" type="text" name="renda_mensal" placeholder="Ex: R$ 3.500">
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Possui restrições no SPC ou Serasa? *</label>
+        <div class="radio-grid">
+          <label class="radio-opt"><input type="radio" name="restricao_hab" value="Sim"> Sim</label>
+          <label class="radio-opt"><input type="radio" name="restricao_hab" value="Não"> Não</label>
+          <label class="radio-opt"><input type="radio" name="restricao_hab" value="Não sei"> Não sei</label>
+        </div>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Dívida interna na Caixa Econômica Federal?</label>
+        <div class="radio-grid">
+          <label class="radio-opt"><input type="radio" name="divida_cef" value="Sim"> Sim</label>
+          <label class="radio-opt"><input type="radio" name="divida_cef" value="Não"> Não</label>
+          <label class="radio-opt"><input type="radio" name="divida_cef" value="Não sei"> Não sei</label>
+        </div>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Entregou IRPF 2024/2025?</label>
+        <div class="radio-grid">
+          <label class="radio-opt"><input type="radio" name="irpf" value="Sim"> Sim</label>
+          <label class="radio-opt"><input type="radio" name="irpf" value="Não"> Não</label>
+          <label class="radio-opt"><input type="radio" name="irpf" value="Isento"> Sou isento</label>
+        </div>
+      </div>`;
+  }
+
+  else if (s === 'Crédito Veicular') {
+    c.innerHTML = `
+      <div class="dor-box">
+        <h3>🚗 O veículo faz falta na sua vida?</h3>
+        <ul>
+          <li><i class="fa-solid fa-circle-xmark"></i> Tentou financiar e foi reprovado no banco?</li>
+          <li><i class="fa-solid fa-circle-xmark"></i> O carro faz falta para trabalhar, buscar os filhos ou crescer profissionalmente?</li>
+          <li><i class="fa-solid fa-circle-xmark"></i> Restrições no CPF podem estar bloqueando sua aprovação?</li>
+          <li><i class="fa-solid fa-circle-check" style="color:#F5C200"></i> Analisamos seu perfil e indicamos o melhor caminho.</li>
+        </ul>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Tipo de veículo de interesse *</label>
+        <div class="radio-grid">
+          <label class="radio-opt"><input type="radio" name="tipo_veiculo" value="Carro"> Carro</label>
+          <label class="radio-opt"><input type="radio" name="tipo_veiculo" value="Moto"> Moto</label>
+          <label class="radio-opt"><input type="radio" name="tipo_veiculo" value="Caminhão"> Caminhão</label>
+          <label class="radio-opt"><input type="radio" name="tipo_veiculo" value="Utilitário"> Utilitário</label>
+        </div>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Finalidade do veículo *</label>
+        <div class="radio-grid">
+          <label class="radio-opt"><input type="radio" name="uso_veiculo" value="Pessoal"> Uso pessoal</label>
+          <label class="radio-opt"><input type="radio" name="uso_veiculo" value="Trabalho"> Uso profissional/trabalho</label>
+          <label class="radio-opt"><input type="radio" name="uso_veiculo" value="Ambos"> Ambos</label>
+        </div>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Faixa de valor do veículo</label>
+        <select class="rn-select" name="valor_veiculo">
+          <option value="">Selecione</option>
+          <option>Até R$ 30.000</option>
+          <option>R$ 30.000 a R$ 60.000</option>
+          <option>R$ 60.000 a R$ 100.000</option>
+          <option>Acima de R$ 100.000</option>
+        </select>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Tem entrada disponível?</label>
+        <div class="radio-grid">
+          <label class="radio-opt"><input type="radio" name="tem_entrada" value="Sim"> Sim</label>
+          <label class="radio-opt"><input type="radio" name="tem_entrada" value="Não"> Não</label>
+        </div>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Já tentou financiar antes?</label>
+        <div class="radio-grid">
+          <label class="radio-opt"><input type="radio" name="tentou_financiar" value="Sim" onclick="document.getElementById('motivo_rep').classList.remove('hidden')"> Sim, fui reprovado</label>
+          <label class="radio-opt"><input type="radio" name="tentou_financiar" value="Não" onclick="document.getElementById('motivo_rep').classList.add('hidden')"> Não tentei ainda</label>
+        </div>
+      </div>
+      <div id="motivo_rep" class="hidden rn-group">
+        <label class="rn-label">Qual foi o motivo da reprovação?</label>
+        <select class="rn-select" name="motivo_reprovacao">
+          <option value="">Selecione</option>
+          <option>Restrição no CPF</option>
+          <option>Renda insuficiente</option>
+          <option>Score baixo</option>
+          <option>Não informaram o motivo</option>
+        </select>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Renda mensal aproximada</label>
+        <input class="rn-input" type="text" name="renda_mensal" placeholder="Ex: R$ 2.500">
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Possui restrições no CPF?</label>
+        <div class="radio-grid">
+          <label class="radio-opt"><input type="radio" name="restricao_veic" value="Sim"> Sim</label>
+          <label class="radio-opt"><input type="radio" name="restricao_veic" value="Não"> Não</label>
+          <label class="radio-opt"><input type="radio" name="restricao_veic" value="Não sei"> Não sei</label>
+        </div>
+      </div>`;
+  }
+
+  else if (s === 'Crédito Empresarial') {
+    c.innerHTML = `
+      <div class="dor-box">
+        <h3>🏢 Sua empresa precisa de crédito para crescer?</h3>
+        <ul>
+          <li><i class="fa-solid fa-circle-xmark"></i> Banco negou crédito para sua empresa?</li>
+          <li><i class="fa-solid fa-circle-xmark"></i> Precisa de capital de giro, equipamentos ou expansão?</li>
+          <li><i class="fa-solid fa-circle-check" style="color:#F5C200"></i> Analisamos sua situação e indicamos as melhores linhas de crédito.</li>
+        </ul>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Finalidade do crédito *</label>
+        <label class="check-opt"><input type="checkbox" name="finalidade" value="Capital de giro"> Capital de giro</label>
+        <label class="check-opt"><input type="checkbox" name="finalidade" value="Equipamentos"> Compra de equipamentos</label>
+        <label class="check-opt"><input type="checkbox" name="finalidade" value="Expansão"> Expansão do negócio</label>
+        <label class="check-opt"><input type="checkbox" name="finalidade" value="Quitação de dívidas"> Quitação de dívidas</label>
+        <label class="check-opt"><input type="checkbox" name="finalidade" value="Outro"> Outro</label>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Valor aproximado necessário</label>
+        <select class="rn-select" name="valor_credito">
+          <option value="">Selecione</option>
+          <option>Até R$ 50.000</option>
+          <option>R$ 50.000 a R$ 200.000</option>
+          <option>R$ 200.000 a R$ 500.000</option>
+          <option>Acima de R$ 500.000</option>
+        </select>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Tempo de atividade da empresa</label>
+        <select class="rn-select" name="tempo_empresa">
+          <option value="">Selecione</option>
+          <option>Menos de 1 ano</option>
+          <option>1 a 2 anos</option>
+          <option>2 a 5 anos</option>
+          <option>Mais de 5 anos</option>
+        </select>
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Faturamento mensal aproximado</label>
+        <input class="rn-input" type="text" name="faturamento" placeholder="Ex: R$ 20.000">
+      </div>
+      <div class="rn-group">
+        <label class="rn-label">Possui restrições no CNPJ ou CPF do sócio?</label>
+        <div class="radio-grid">
+          <label class="radio-opt"><input type="radio" name="restricao_emp" value="Sim"> Sim</label>
+          <label class="radio-opt"><input type="radio" name="restricao_emp" value="Não"> Não</label>
+          <label class="radio-opt"><input type="radio" name="restricao_emp" value="Não sei"> Não sei</label>
+        </div>
+      </div>`;
+  }
+}
+
+function montarStep3() {
+  const s = servicoSelecionado;
+  const isPJ = s === 'Remove Nome CNPJ' || s === 'Crédito Empresarial';
+  const c = document.getElementById('conteudo-step3');
+
+  c.innerHTML = `
+    <p style="font-size:13px;color:#888;margin-bottom:1.25rem">Precisamos dos seus dados para entrar em contato e dar início ao atendimento.</p>
+    ${isPJ ? `
+    <div class="rn-group">
+      <label class="rn-label">Razão Social *</label>
+      <input class="rn-input" type="text" name="razao_social" placeholder="Nome da empresa">
+    </div>
+    <div class="rn-group">
+      <label class="rn-label">CNPJ *</label>
+      <input class="rn-input" type="text" name="cnpj_cliente" placeholder="00.000.000/0001-00" maxlength="18" oninput="mascaraCNPJ(this)">
+    </div>
+    <div class="rn-group">
+      <label class="rn-label">Nome do responsável *</label>
+      <input class="rn-input" type="text" name="nome_responsavel" placeholder="Seu nome completo">
+    </div>
+    <div class="rn-group">
+      <label class="rn-label">CPF do responsável *</label>
+      <input class="rn-input" type="text" name="cpf_responsavel" placeholder="000.000.000-00" maxlength="14" oninput="mascaraCPF(this)">
+    </div>
+    ` : `
+    <div class="rn-group">
+      <label class="rn-label">Nome completo *</label>
+      <input class="rn-input" type="text" name="nome" placeholder="Seu nome completo">
+    </div>
+    <div class="rn-group">
+      <label class="rn-label">CPF *</label>
+      <input class="rn-input" type="text" name="cpf" placeholder="000.000.000-00" maxlength="14" oninput="mascaraCPF(this)">
+    </div>
+    ${s === 'Crédito Habitacional' ? `
+    <div class="rn-group">
+      <label class="rn-label">Data de nascimento *</label>
+      <input class="rn-input" type="date" name="data_nascimento">
+    </div>
+    <div class="rn-group">
+      <label class="rn-label">Estado civil *</label>
+      <select class="rn-select" name="estado_civil">
+        <option value="">Selecione</option>
+        <option>Solteiro(a)</option>
+        <option>Casado(a)</option>
+        <option>União estável</option>
+        <option>Divorciado(a)</option>
+        <option>Viúvo(a)</option>
+      </select>
+    </div>
+    ` : ''}
+    `}
+    <div class="rn-group">
+      <label class="rn-label">WhatsApp com DDD *</label>
+      <input class="rn-input" type="tel" name="whatsapp" placeholder="(00) 00000-0000" maxlength="15" oninput="mascaraFone(this)">
+    </div>
+    <div class="rn-group">
+      <label class="rn-label">E-mail</label>
+      <input class="rn-input" type="email" name="email" placeholder="seu@email.com">
+    </div>
+    <div class="rn-group">
+      <label class="rn-label">Observações adicionais</label>
+      <textarea class="rn-textarea" name="observacoes" placeholder="Alguma informação adicional que queira compartilhar..."></textarea>
+    </div>`;
+}
+
+function mascaraCPF(el){
+  let v=el.value.replace(/\D/g,'');
+  if(v.length>11)v=v.slice(0,11);
+  v=v.replace(/(\d{3})(\d)/,'$1.$2');
+  v=v.replace(/(\d{3})(\d)/,'$1.$2');
+  v=v.replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+  el.value=v;
+}
+
+function mascaraCNPJ(el){
+  let v=el.value.replace(/\D/g,'');
+  if(v.length>14)v=v.slice(0,14);
+  v=v.replace(/(\d{2})(\d)/,'$1.$2');
+  v=v.replace(/(\d{3})(\d)/,'$1.$2');
+  v=v.replace(/(\d{3})(\d)/,'$1/$2');
+  v=v.replace(/(\d{4})(\d{1,2})$/,'$1-$2');
+  el.value=v;
+}
+
+function mascaraFone(el){
+  let v=el.value.replace(/\D/g,'');
+  if(v.length>11)v=v.slice(0,11);
+  if(v.length>6) v=v.replace(/(\d{2})(\d{5})(\d)/,'($1) $2-$3');
+  else if(v.length>2) v=v.replace(/(\d{2})(\d)/,'($1) $2');
+  el.value=v;
+}
+
+function verificarLGPD(){
+  const ok = document.getElementById('lgpd1').checked &&
+             document.getElementById('lgpd2').checked &&
+             document.getElementById('lgpd3').checked;
+  document.getElementById('btnEnviar').disabled = !ok;
+}
+
+function coletarDados(){
+  const dados = { servico: servicoSelecionado };
+  document.querySelectorAll('input[type=text],input[type=tel],input[type=email],input[type=date],select,textarea').forEach(el => {
+    if(el.name) dados[el.name] = el.value;
+  });
+  document.querySelectorAll('input[type=radio]:checked').forEach(el => {
+    if(el.name) dados[el.name] = el.value;
+  });
+  const checkboxGroups = {};
+  document.querySelectorAll('input[type=checkbox]:checked').forEach(el => {
+    if(el.name && el.name !== 'lgpd'){
+      if(!checkboxGroups[el.name]) checkboxGroups[el.name] = [];
+      checkboxGroups[el.name].push(el.value);
+    }
+  });
+  Object.keys(checkboxGroups).forEach(k => { dados[k] = checkboxGroups[k].join(', '); });
+  dados['LGPD'] = 'Autorizado — ' + new Date().toLocaleString('pt-BR');
+  return dados;
+}
+
+async function enviarFormulario(){
+  const btn = document.getElementById('btnEnviar');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Enviando...';
+
+  const dados = coletarDados();
+
+  try {
+    await fetch(URL_ATENDIMENTO, {
+      method: 'POST',
+      body: JSON.stringify(dados),
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+    });
+    irStep(5);
+  } catch(err) {
+    // Mesmo com erro de CORS, os dados chegam no Apps Script
+    irStep(5);
+  }
+}
+</script>
+</body>
+</html>
