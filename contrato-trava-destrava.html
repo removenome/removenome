@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trava e Destrava Crédito | Remove Nome</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --az9:#0a1a5c;--az8:#0f2a7a;--az7:#1a3faa;--az5:#eef1fb;
+  --do:#F5C200;--do6:#d6a82a;
+  --n9:#1a1a2e;--n7:#444455;--n5:#777788;--n3:#cccdd9;--n1:#f7f7fa;--n0:#ffffff;
+  --ok:#1c9d6b;--er:#d6453d;
+  --f:"Inter",-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--f);background:var(--n1);color:var(--n9);font-size:15px;line-height:1.6}
+.hdr{background:linear-gradient(135deg,var(--az8),var(--az7));padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.hdr img{height:48px}
+.hdr-t{color:#fff;font-size:13px;font-weight:600;text-align:right}
+.hdr-t strong{display:block;font-size:15px;color:var(--do)}
+.prog-w{background:var(--az8);padding:1rem 1.5rem 1.5rem}
+.prog-l{color:rgba(255,255,255,.7);font-size:12px;margin-bottom:6px;display:flex;justify-content:space-between}
+.prog-b{background:rgba(255,255,255,.15);border-radius:30px;height:6px;overflow:hidden}
+.prog-f{background:var(--do);height:100%;border-radius:30px;transition:width .4s ease}
+.wrap{max-width:680px;margin:0 auto;padding:1.5rem 1rem 3rem}
+.step{display:none}
+.step.on{display:block;animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fc{background:#fff;border-radius:16px;padding:1.5rem;box-shadow:0 2px 12px rgba(10,26,92,.06);margin-bottom:1rem}
+.fc h3{font-size:17px;font-weight:700;color:var(--az7);margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:2px solid var(--az5);display:flex;align-items:center;gap:8px}
+.fg{margin-bottom:1rem}
+.lbl{display:block;font-size:11px;font-weight:700;color:var(--n5);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.ob{color:var(--er)}
+.inp{width:100%;padding:12px 14px;border:1.5px solid var(--n3);border-radius:10px;font-size:15px;font-family:var(--f);outline:none;color:var(--n9);background:var(--n1);transition:all .2s}
+.inp:focus{border-color:var(--az7);background:#fff;box-shadow:0 0 0 3px rgba(26,63,170,.08)}
+.inp.err{border-color:var(--er)!important}
+.merr{font-size:12px;color:var(--er);margin-top:3px;display:none}
+.sh{margin-bottom:1.5rem}
+.sh-badge{display:inline-flex;align-items:center;gap:6px;background:var(--az5);border-radius:30px;padding:4px 12px;color:var(--az7);font-size:12px;font-weight:700;margin-bottom:.5rem}
+.sh-title{font-size:20px;font-weight:800;color:var(--n9);margin-bottom:4px}
+.sh-sub{font-size:13.5px;color:var(--n5)}
+.cl-box{background:#fff;border:1.5px solid var(--n3);border-radius:12px;padding:1.25rem;max-height:400px;overflow-y:auto;margin-bottom:1rem;font-size:13.5px;line-height:1.85;color:var(--n7)}
+.cl-box h4{font-size:14px;font-weight:800;color:var(--az7);margin:1.25rem 0 .5rem;border-left:3px solid var(--do);padding-left:.5rem}
+.cl-box h4:first-child{margin-top:0}
+.cl-box p{margin-bottom:.5rem}
+.cl-box strong{color:var(--n9)}
+.ac{display:flex;align-items:flex-start;gap:12px;padding:1rem;background:var(--az5);border-radius:12px;margin-bottom:.5rem;border:1.5px solid var(--n1);transition:border .2s}
+.ac.ok{border-color:var(--ok)}
+.ac input{width:18px;height:18px;accent-color:var(--az7);cursor:pointer;flex-shrink:0;margin-top:2px}
+.ac label{font-size:13.5px;color:var(--n7);cursor:pointer;line-height:1.5}
+.ass-box{background:#fff;border:2px dashed var(--n3);border-radius:12px;padding:1.5rem;text-align:center;margin-bottom:1rem}
+.ass-box p{font-size:13.5px;color:var(--n5);margin-bottom:1rem}
+.ass-inp{width:100%;padding:14px;border:none;border-bottom:2px solid var(--az7);font-size:18px;font-family:Georgia,serif;font-style:italic;text-align:center;background:transparent;outline:none;color:var(--n9)}
+.ass-meta{font-size:12px;color:var(--n5);margin-top:.5rem}
+.pag-box{background:var(--az5);border:1.5px solid var(--az7);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.pag-box h4{font-size:15px;font-weight:700;color:var(--az7);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.pag-row{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--n3);font-size:14px}
+.pag-row:last-child{border:none;font-weight:700;color:var(--az7);font-size:16px}
+.pix-box{background:#fff;border-radius:10px;padding:1rem;margin-top:1rem;text-align:center}
+.pix-tipo{font-size:11px;color:var(--n5);margin-bottom:2px}
+.pix-chave{font-size:20px;font-weight:900;color:var(--az7);letter-spacing:.04em}
+.btn-copy{display:inline-flex;align-items:center;gap:6px;margin-top:.5rem;padding:8px 18px;background:var(--az7);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--f)}
+.api-pag{background:#fff;border:2px dashed var(--n3);border-radius:12px;padding:1.25rem;margin-top:1rem}
+.api-pag h5{font-size:13px;font-weight:700;color:var(--n5);margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
+.api-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border:none;border-radius:10px;font-size:14px;font-weight:700;font-family:var(--f);cursor:pointer;margin-bottom:.5rem;transition:all .2s}
+.api-btn:disabled{cursor:not-allowed;opacity:.7}
+.btn-mp{background:#009ee3;color:#fff}
+.api-nota{font-size:11px;color:var(--n5);text-align:center;margin-top:.5rem}
+.nav{display:flex;gap:1rem;margin-top:1.5rem}
+.btn-p{flex:1;padding:15px;background:var(--az7);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;font-family:var(--f);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-p:hover{background:var(--az8);transform:translateY(-1px)}
+.btn-p:disabled{background:var(--n3);cursor:not-allowed;transform:none}
+.btn-s{padding:15px 1.5rem;background:transparent;color:var(--az7);border:2px solid var(--az7);border-radius:12px;font-size:14px;font-weight:600;font-family:var(--f);cursor:pointer}
+.btn-d{flex:1;padding:15px;background:var(--do);color:var(--az8);border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:var(--f);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;text-decoration:none}
+.btn-d:hover{background:var(--do6);transform:translateY(-1px)}
+.ok-box{background:#fff;border-radius:16px;padding:2rem;text-align:center;box-shadow:0 8px 30px rgba(10,26,92,.12)}
+.ok-ico{width:72px;height:72px;border-radius:50%;background:#e7f6ef;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:32px;color:var(--ok)}
+.ok-box h2{font-size:24px;font-weight:800;margin-bottom:.5rem}
+.ok-box p{font-size:14px;color:var(--n5);line-height:1.7;margin-bottom:1.25rem}
+.proto-b{background:var(--az5);border:1.5px solid var(--az7);border-radius:10px;padding:1rem;margin-bottom:1.25rem}
+.proto-n{font-size:26px;font-weight:900;color:var(--az7)}
+.proto-l{font-size:12px;color:var(--n5);margin-top:2px}
+.ac-grid{display:flex;flex-direction:column;gap:.5rem}
+.ld{display:none;position:fixed;inset:0;background:rgba(10,26,92,.85);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:1rem}
+.ld.on{display:flex}
+.ld-spin{width:48px;height:48px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--do);border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ld-txt{color:#fff;font-size:15px;font-weight:600}
+.destaque-box{background:linear-gradient(135deg,#eef1fb,#e0e6fb);border:2px solid var(--az7);border-radius:14px;padding:1.25rem;margin-bottom:1rem}
+.destaque-box h4{color:var(--az8);font-size:15px;font-weight:800;margin-bottom:.75rem;display:flex;align-items:center;gap:8px}
+.destaque-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--n7);margin-bottom:.5rem;line-height:1.5}
+.destaque-item i{color:var(--az7);flex-shrink:0;margin-top:2px}
+.preco-hero{text-align:center;padding:1.5rem 0;margin-bottom:1rem}
+.preco-hero .valor{font-size:42px;font-weight:900;color:var(--az7)}
+.preco-hero .sub{font-size:13px;color:var(--n5)}
+.upload-box{background:#fff;border:2px dashed var(--n3);border-radius:12px;padding:1.5rem;text-align:center;margin-bottom:1rem;transition:border .2s}
+.upload-box.ok{border-color:var(--ok);background:#f3fbf7}
+.upload-box i{font-size:28px;color:var(--az7);margin-bottom:.5rem;display:block}
+.upload-box p{font-size:13px;color:var(--n5);margin-bottom:.75rem}
+.upload-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--az7);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--f)}
+.upload-nome{font-size:13px;color:var(--ok);font-weight:700;margin-top:.75rem;display:none}
+#iframe_contrato{display:none}
+</style>
+</head>
+<body>
+
+<iframe name="iframe_contrato" style="display:none;"></iframe>
+
+<div class="ld" id="ld"><div class="ld-spin"></div><p class="ld-txt" id="ldTxt">Processando...</p></div>
+
+<header class="hdr">
+  <img src="https://raw.githubusercontent.com/removenome/removenome/main/logo.JPG" alt="Remove Nome">
+  <div class="hdr-t"><span>Trava e Destrava</span><strong>Crédito</strong></div>
+</header>
+
+<div class="prog-w">
+  <div class="prog-l"><span id="pl">Etapa 1 de 3 — Seus dados</span><span id="pp">33%</span></div>
+  <div class="prog-b"><div class="prog-f" id="pf" style="width:33%"></div></div>
+</div>
+
+<div class="wrap">
+
+<!-- STEP 1: DADOS -->
+<div class="step on" id="s1">
+  <div class="sh">
+    <span class="sh-badge"><i class="fa-solid fa-magnifying-glass-dollar"></i> Etapa 1 de 3</span>
+    <h2 class="sh-title">Descubra sua Trava</h2>
+    <p class="sh-sub">Análise completa do que está travando seu crédito no sistema financeiro</p>
+    <p style="font-size:13px;color:var(--n7);margin-top:.5rem;line-height:1.6">
+      Cartão negado, financiamento recusado, crédito que nunca sai do papel — na maioria das vezes
+      existe um motivo específico, e ele está escondido no seu histórico bancário. Ao preencher o
+      contrato abaixo, você já começa a ter clareza sobre o que precisa saber para destravar.
+    </p>
+  </div>
+
+  <div class="preco-hero">
+    <div class="valor">R$ 97</div>
+    <div class="sub">pagamento único · relatório entregue por e-mail</div>
+  </div>
+
+  <div class="destaque-box">
+    <h4><i class="fa-solid fa-circle-check"></i> O que você recebe</h4>
+    <div class="destaque-item"><i class="fa-solid fa-check"></i> <span>Análise completa do seu relatório SCR (Banco Central) dos últimos 5 anos</span></div>
+    <div class="destaque-item"><i class="fa-solid fa-check"></i> <span>Identificação de dívidas vencidas e o que exatamente está travando seu crédito</span></div>
+    <div class="destaque-item"><i class="fa-solid fa-check"></i> <span>Consulta da sua situação nos principais bureaus (SPC, Serasa, Boa Vista)</span></div>
+    <div class="destaque-item"><i class="fa-solid fa-check"></i> <span>Relatório personalizado em PDF, com orientações práticas de regularização</span></div>
+    <div class="destaque-item"><i class="fa-solid fa-check"></i> <span>Links úteis para atualizar seu cadastro nos bureaus e orientação sobre declaração de IR</span></div>
+  </div>
+
+  <div class="fc">
+    <h3><i class="fa-solid fa-id-card"></i> Seus dados</h3>
+    <div class="fg">
+      <label class="lbl">Nome completo <span class="ob">*</span></label>
+      <input class="inp" id="nome" placeholder="Seu nome completo">
+      <div class="merr" id="eNome">Nome completo é obrigatório</div>
+    </div>
+    <div class="fg">
+      <label class="lbl">CPF <span class="ob">*</span></label>
+      <input class="inp" id="cpf" placeholder="000.000.000-00" oninput="msk(this,'cpf')" inputmode="numeric">
+      <div class="merr" id="eCpf">CPF é obrigatório</div>
+    </div>
+    <div class="fg">
+      <label class="lbl">WhatsApp <span class="ob">*</span></label>
+      <input class="inp" id="whatsapp" placeholder="(00) 00000-0000" oninput="msk(this,'tel')" inputmode="numeric">
+      <div class="merr" id="eWhats">WhatsApp é obrigatório</div>
+    </div>
+    <div class="fg">
+      <label class="lbl">E-mail <span class="ob">*</span></label>
+      <input class="inp" id="email" placeholder="seu@email.com" type="email">
+      <div class="merr" id="eEmail">E-mail válido é obrigatório</div>
+    </div>
+    <div class="fg">
+      <label class="lbl">O que você está buscando conseguir? <span class="ob">*</span></label>
+      <select class="inp" id="objetivo">
+        <option value="">Selecione uma opção</option>
+        <option value="Cartão de crédito">Cartão de crédito</option>
+        <option value="Financiamento de veículo">Financiamento de veículo</option>
+        <option value="Financiamento imobiliário">Financiamento imobiliário</option>
+        <option value="Empréstimo pessoal">Empréstimo pessoal</option>
+        <option value="Crédito para minha empresa (CNPJ)">Crédito para minha empresa (CNPJ)</option>
+        <option value="Ainda não sei, quero entender minha situação">Ainda não sei, quero entender minha situação</option>
+      </select>
+      <div class="merr" id="eObjetivo">Selecione o que você está buscando</div>
+      <div style="background:var(--az5);border-radius:10px;padding:.85rem 1rem;margin-top:.6rem;font-size:12.5px;color:var(--n7);line-height:1.6">
+        <i class="fa-solid fa-lightbulb" style="color:var(--az7);margin-right:6px"></i>
+        Quanto mais específico você for aqui, mais direcionado fica o seu diagnóstico — você vai entender exatamente o que está te travando <strong>para esse objetivo</strong>, e vai saber o que fazer para destravar.
+      </div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="btn-p" onclick="valStep1()">Continuar <i class="fa-solid fa-arrow-right"></i></button>
+  </div>
+</div>
+
+<!-- STEP 2: CONTRATO -->
+<div class="step" id="s2">
+  <div class="sh">
+    <span class="sh-badge"><i class="fa-solid fa-file-contract"></i> Etapa 2 de 3</span>
+    <h2 class="sh-title">Contrato de prestação de serviço</h2>
+    <p class="sh-sub">Leia e aceite os termos abaixo</p>
+  </div>
+
+  <div class="cl-box">
+    <h4>CLÁUSULA 1ª — DO OBJETO</h4>
+    <p>Prestação de serviço de análise e diagnóstico de crédito, consistindo em: (a) análise do relatório SCR (Sistema de Informações de Crédito) do Banco Central do Brasil referente aos últimos 5 (cinco) anos, fornecido pelo CONTRATANTE; (b) identificação de dívidas vencidas e apontamentos que impactam a concessão de crédito; (c) consulta da situação cadastral do CONTRATANTE nos principais bureaus de crédito (SPC, Serasa, Boa Vista); (d) elaboração de relatório personalizado em PDF com diagnóstico e orientações práticas.</p>
+
+    <h4>CLÁUSULA 2ª — DO VALOR</h4>
+    <p>Valor único de <strong>R$ 97,00</strong>, pago integralmente no ato da contratação, via Mercado Pago (PIX, cartão ou boleto) ou PIX manual.</p>
+
+    <h4>CLÁUSULA 3ª — DO RELATÓRIO SCR</h4>
+    <p>O CONTRATANTE deverá anexar, nesta própria página, o arquivo do relatório SCR obtido junto ao Banco Central (disponível gratuitamente em registrato.bcb.gov.br), referente aos últimos 5 anos. Caso não tenha o arquivo em mãos no momento da contratação, poderá enviá-lo posteriormente pelo WhatsApp. O prazo de entrega do diagnóstico (Cláusula 4ª) é contado a partir do recebimento desse documento.</p>
+
+    <h4>CLÁUSULA 4ª — DO PRAZO DE ENTREGA</h4>
+    <p>A CONTRATADA entregará o relatório de diagnóstico por e-mail em até <strong>5 (cinco) dias úteis</strong> a partir do recebimento do relatório SCR mencionado na Cláusula 3ª.</p>
+
+    <h4>CLÁUSULA 5ª — DA NATUREZA DO SERVIÇO</h4>
+    <p>O serviço tem natureza informativa e consultiva, não constituindo aconselhamento jurídico, contábil ou financeiro definitivo, nem garantia de concessão de crédito por qualquer instituição financeira. As orientações fornecidas são de uso exclusivo do CONTRATANTE, cabendo a ele a decisão sobre como proceder.</p>
+
+    <h4>CLÁUSULA 6ª — DA LGPD</h4>
+    <p>Os dados e documentos fornecidos pelo CONTRATANTE (incluindo o relatório SCR) serão tratados exclusivamente para a execução deste serviço, conforme a Lei nº 13.709/2018 (LGPD), não sendo compartilhados com terceiros sem consentimento, e serão descartados após a conclusão do serviço.</p>
+
+    <h4>CLÁUSULA 7ª — DO FORO</h4>
+    <p>Fica eleito o Foro da Comarca de Caraguatatuba – SP, com renúncia a qualquer outro, por mais privilegiado que seja.</p>
+  </div>
+
+  <div class="ac" id="acCt"><input type="checkbox" id="cAceite" onchange="toggleAceite()"><label for="cAceite">Li e aceito integralmente os termos do contrato acima.</label></div>
+
+  <div class="nav">
+    <button class="btn-s" onclick="irStep(1)"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+    <button class="btn-p" id="btnS2" onclick="irStep(3)" disabled>Continuar <i class="fa-solid fa-arrow-right"></i></button>
+  </div>
+</div>
+
+<!-- STEP 3: SCR + ASSINATURA + PAGAMENTO -->
+<div class="step" id="s3">
+  <div class="sh">
+    <span class="sh-badge"><i class="fa-solid fa-signature"></i> Etapa 3 de 3</span>
+    <h2 class="sh-title">Relatório, assinatura e pagamento</h2>
+    <p class="sh-sub">Anexe seu SCR (se já tiver em mãos), assine e efetue o pagamento</p>
+  </div>
+
+  <div class="upload-box" id="uploadBox">
+    <i class="fa-solid fa-file-arrow-up"></i>
+    <p><strong>Relatório SCR (opcional agora)</strong><br>Se já tiver o PDF baixado no Banco Central, anexe aqui. Tamanho máximo: 15MB. Se não tiver ainda, pode enviar depois pelo WhatsApp.</p>
+    <input type="file" id="scrFile" accept="application/pdf" style="display:none" onchange="handleScrFile(this)">
+    <button type="button" class="upload-btn" onclick="document.getElementById('scrFile').click()"><i class="fa-solid fa-paperclip"></i> Escolher arquivo PDF</button>
+    <div class="upload-nome" id="scrNome"></div>
+  </div>
+
+  <div class="ass-box">
+    <p>Digite seu nome completo como assinatura eletrônica</p>
+    <input class="ass-inp" id="ass" placeholder="Seu nome completo">
+    <div class="merr" id="eAss" style="text-align:center">Assinatura é obrigatória</div>
+    <div class="ass-meta" id="dtAss"></div>
+  </div>
+
+  <div class="pag-box">
+    <h4><i class="fa-solid fa-file-invoice-dollar"></i> Resumo</h4>
+    <div class="pag-row"><span>Trava e Destrava Crédito</span><span>R$ 97,00</span></div>
+    <div class="pag-row"><span>Total a pagar</span><span>R$ 97,00</span></div>
+
+    <div class="pix-box">
+      <div class="pix-tipo">PIX manual — use apenas se o botão Mercado Pago não funcionar</div>
+      <div class="pix-chave">62.197.923/0001-32</div>
+      <div style="font-size:11px;color:var(--n5)">Chave CNPJ — Remove Nome Assessoria e Consultoria</div>
+      <button class="btn-copy" onclick="copiarPix()"><i class="fa-regular fa-copy"></i> Copiar chave PIX</button>
+      <div style="font-size:11px;color:var(--n5);margin-top:.5rem">Ao pagar pelo PIX manual, envie o comprovante pelo WhatsApp para confirmar.</div>
+    </div>
+
+    <div class="api-pag">
+      <h5><i class="fa-solid fa-credit-card"></i> Pagar online — Mercado Pago</h5>
+      <button class="api-btn btn-mp" id="btnMP" onclick="pagar()">
+        <i class="fa-brands fa-cc-mastercard"></i> Pagar R$ 97,00 — PIX / Cartão / Boleto
+      </button>
+      <div class="api-nota">Você será redirecionado para o ambiente seguro do Mercado Pago e voltará automaticamente após o pagamento.</div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="btn-s" onclick="irStep(2)"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+  </div>
+</div>
+
+<!-- STEP 4: SUCESSO -->
+<div class="step" id="s4">
+  <div class="ok-box">
+    <div class="ok-ico"><i class="fa-solid fa-check"></i></div>
+    <h2>Pagamento confirmado!</h2>
+    <p id="msgSucesso">Seu contrato foi assinado e o pagamento processado.</p>
+    <div class="proto-b">
+      <div class="proto-n" id="protoFinal">—</div>
+      <div class="proto-l">Número do protocolo</div>
+    </div>
+    <div class="ac-grid">
+      <a class="btn-d" id="btnWa" href="#" target="_blank"><i class="fa-brands fa-whatsapp"></i> Enviar meu relatório SCR pelo WhatsApp</a>
+      <a class="btn-s" style="text-align:center;text-decoration:none" href="https://registrato.bcb.gov.br" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Não tenho o relatório SCR ainda — baixar no Banco Central</a>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+let dados = {};
+let scrBase64 = '';
+let scrNomeArquivo = '';
+const TAMANHO_MAX_SCR = 15 * 1024 * 1024; // 15MB
+
+const URL_CONTRATO = 'https://script.google.com/macros/s/AKfycbwmRU_swNMPt-mfax4sFijiNfqhGY0FkuLqAq3Zm26rg_clhyWYEg14Wp4jyXLCcBKf/exec';
+const URL_PAGAMENTO_MP = 'https://script.google.com/macros/s/AKfycbw1gSUpsMRMVxJ332IF9fzH702ZEbtPuM-9_d6qI-6G5csItuLleuPlRFy9MlLCV5Os/exec';
+
+function irStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('on'));
+  document.getElementById('s' + n).classList.add('on');
+  const p = Math.round((n / 4) * 100);
+  document.getElementById('pf').style.width = p + '%';
+  document.getElementById('pp').textContent = p + '%';
+  const nomes = ['', 'Seus dados', 'Contrato', 'Relatório, assinatura e pagamento', 'Concluído'];
+  document.getElementById('pl').textContent = 'Etapa ' + n + ' de 3 — ' + nomes[n];
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function msk(el, t) {
+  let v = el.value.replace(/\D/g, '');
+  if (t === 'cpf') { v = v.slice(0,11); v = v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2'); }
+  else if (t === 'tel') { v = v.slice(0,11); v = v.replace(/(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d{4})$/,'$1-$2'); }
+  el.value = v;
+}
+
+function g(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+function valStep1() {
+  let ok = true;
+  const campos = [['nome','eNome'], ['cpf','eCpf'], ['whatsapp','eWhats'], ['email','eEmail'], ['objetivo','eObjetivo']];
+  campos.forEach(([fId, eId]) => {
+    const v = g(fId);
+    const valido = fId === 'email' ? v.includes('@') && v.includes('.') : v.length > 0;
+    document.getElementById(fId).classList.toggle('err', !valido);
+    document.getElementById(eId).style.display = valido ? 'none' : 'block';
+    if (!valido) ok = false;
+  });
+  if (!ok) return;
+  dados = { nome: g('nome'), cpf: g('cpf'), whatsapp: g('whatsapp'), email: g('email'), objetivo: g('objetivo') };
+  irStep(2);
+}
+
+function toggleAceite() {
+  const checked = document.getElementById('cAceite').checked;
+  document.getElementById('acCt').classList.toggle('ok', checked);
+  document.getElementById('btnS2').disabled = !checked;
+}
+
+function copiarPix() {
+  navigator.clipboard.writeText('62.197.923/0001-32');
+  alert('Chave PIX copiada!');
+}
+
+function handleScrFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  if (file.type !== 'application/pdf') {
+    alert('Envie um arquivo em PDF.');
+    input.value = '';
+    return;
+  }
+  if (file.size > TAMANHO_MAX_SCR) {
+    alert('O arquivo é maior que 15MB. Envie um arquivo menor ou mande pelo WhatsApp depois do pagamento.');
+    input.value = '';
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    scrBase64 = e.target.result.split(',')[1];
+    scrNomeArquivo = file.name;
+    document.getElementById('scrNome').textContent = '✓ ' + file.name + ' anexado';
+    document.getElementById('scrNome').style.display = 'block';
+    document.getElementById('uploadBox').classList.add('ok');
+  };
+  reader.onerror = function() {
+    alert('Não foi possível ler o arquivo. Tente novamente ou envie pelo WhatsApp depois.');
+  };
+  reader.readAsDataURL(file);
+}
+
+function geraProto() {
+  return 'TD-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 9000) + 1000);
+}
+
+function enviar() {
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = URL_CONTRATO;
+  form.target = 'iframe_contrato';
+  form.style.display = 'none';
+
+  const campos = {
+    protocolo: dados.protocolo,
+    tipo: 'DESTRAVA',
+    nome: dados.nome,
+    documento: dados.cpf,
+    rg_cpfrep: '',
+    nome_rep: '',
+    endereco: '',
+    whatsapp: dados.whatsapp,
+    email: dados.email,
+    valor: 'R$ 97,00',
+    entrada: 'R$ 97,00',
+    conclusao: 'R$ 0,00',
+    assinatura: dados.assinatura,
+    data_assinatura: dados.dataAssinatura,
+    termo_aceito: 'Sim — ' + dados.dataAssinatura,
+    useragent: navigator.userAgent.slice(0,200),
+    pdf_base64: '',
+    scr_base64: scrBase64 || '',
+    scr_nome_arquivo: scrNomeArquivo || '',
+    objetivo_credito: dados.objetivo || ''
+  };
+
+  Object.keys(campos).forEach(k => {
+    const inp = document.createElement('input');
+    inp.type = 'hidden'; inp.name = k; inp.value = campos[k] || '';
+    form.appendChild(inp);
+  });
+
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+  return new Promise(r => setTimeout(r, 1200));
+}
+
+async function pagar() {
+  const ass = g('ass');
+  if (!ass) {
+    document.getElementById('eAss').style.display = 'block';
+    document.getElementById('ass').classList.add('err');
+    return;
+  }
+
+  const btn = document.getElementById('btnMP');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Gerando link de pagamento...';
+
+  if (!dados.protocolo) {
+    dados.protocolo = geraProto();
+    dados.assinatura = ass;
+    dados.dataAssinatura = new Date().toLocaleString('pt-BR');
+  }
+
+  await enviar();
+
+  const nomeCallback = 'mpCallback_' + Date.now();
+  let finalizado = false;
+
+  function limparChamada() {
+    delete window[nomeCallback];
+    const tagAntiga = document.getElementById(nomeCallback);
+    if (tagAntiga) tagAntiga.remove();
+  }
+
+  function falhou(msg) {
+    if (finalizado) return;
+    finalizado = true;
+    limparChamada();
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-brands fa-cc-mastercard"></i> Pagar R$ 97,00 — PIX / Cartão / Boleto';
+    alert('Erro ao gerar link de pagamento. Tente novamente ou use o PIX acima.\n' + msg);
+  }
+
+  window[nomeCallback] = function(resultado) {
+    if (finalizado) return;
+    finalizado = true;
+    limparChamada();
+    if (resultado && resultado.ok && resultado.url) {
+      window.location.href = resultado.url;
+    } else {
+      falhou(JSON.stringify((resultado && resultado.erro) || resultado));
+    }
+  };
+
+  const params = new URLSearchParams({
+    action: 'criar_preferencia',
+    protocolo: dados.protocolo,
+    tipo: 'CPF',
+    valor: 97.00,
+    nome: dados.nome,
+    email: dados.email,
+    cpf: dados.cpf,
+    url_base: window.location.origin + window.location.pathname,
+    callback: nomeCallback
+  });
+
+  const script = document.createElement('script');
+  script.id = nomeCallback;
+  script.src = URL_PAGAMENTO_MP + '?' + params.toString();
+  script.onerror = function() { falhou('Não foi possível conectar ao servidor de pagamento.'); };
+  document.body.appendChild(script);
+
+  setTimeout(function() {
+    if (!finalizado) falhou('O servidor demorou demais para responder.');
+  }, 20000);
+}
+
+function verificarRetornoMP() {
+  const params = new URLSearchParams(window.location.search);
+  const pagamento = params.get('pagamento');
+  const proto = params.get('proto');
+  if (pagamento === 'aprovado' && proto) {
+    document.getElementById('protoFinal').textContent = proto;
+    document.getElementById('btnWa').href = 'https://wa.me/5512981239357?text=' +
+      encodeURIComponent('Olá! Paguei o Trava e Destrava Crédito. Protocolo: ' + proto + '. Segue meu relatório SCR:');
+    if (scrBase64) {
+      document.getElementById('msgSucesso').textContent = 'Seu contrato foi assinado, o pagamento processado e seu relatório SCR já foi recebido. Vamos começar a análise!';
+      document.getElementById('btnWa').innerHTML = '<i class="fa-brands fa-whatsapp"></i> Falar conosco pelo WhatsApp';
+    } else {
+      document.getElementById('msgSucesso').textContent = 'Seu contrato foi assinado e o pagamento processado. Agora falta só uma coisa: envie o seu relatório SCR pelo WhatsApp pra gente começar a análise.';
+    }
+    irStep(4);
+  } else if (pagamento === 'pendente') {
+    alert('Seu pagamento está pendente de confirmação. Assim que for aprovado, você recebe a confirmação por e-mail.');
+  } else if (pagamento === 'falhou') {
+    alert('O pagamento não foi concluído. Você pode tentar novamente.');
+  }
+}
+
+window.onload = function() {
+  document.getElementById('dtAss').textContent = new Date().toLocaleString('pt-BR');
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('pagamento')) verificarRetornoMP();
+};
+</script>
+</body>
+</html>
