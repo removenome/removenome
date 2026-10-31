@@ -1,0 +1,32 @@
+{
+  "name": "Remove Nome - Regularização Cadastral",
+  "short_name": "Remove Nome",
+  "description": "Regularize seu nome no SPC, Serasa, Boa Vista e Cartórios com amparo legal. Atendimento para CPF e CNPJ em todo o Brasil.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f2a7a",
+  "theme_color": "#1a3faa",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
