@@ -528,15 +528,15 @@ footer a,footer button{color:#fff}
     <h2 class="d">Perguntas frequentes</h2>
     <div class="card faq">
       <details><summary>A consulta é grátis mesmo?</summary><p>Sim. Você só paga se tiver restrição e quiser contratar a Ação Limpa Nome.</p></details>
-      <details><summary>O que é a Ação Limpa Nome?</summary><p>É o serviço de assessoria da Remove Nome para regularizar os apontamentos (restrições) do seu CPF no SPC, Serasa, SCPC/Boa Vista e cartórios de protesto, com base no Código de Defesa do Consumidor. Os nomes dos clientes são enviados em lotes, e cada ação tem um prazo de envio.</p></details>
+      <details><summary>O que é a Ação Limpa Nome?</summary><p>É o serviço de assessoria da Remove Nome para regularizar os apontamentos (restrições) do seu CPF ou do CNPJ da sua empresa no SPC, Serasa, SCPC/Boa Vista e cartórios de protesto, com base no Código de Defesa do Consumidor. Os nomes dos clientes são enviados em lotes, e cada ação tem um prazo de envio.</p></details>
       <details><summary>Vocês pagam ou negociam a minha dívida?</summary><p>Não. O serviço não paga, não negocia e não quita a dívida. A dívida com o credor continua existindo. O trabalho é sobre os apontamentos nos órgãos de proteção ao crédito.</p></details>
       <details><summary>Quanto tempo leva?</summary><p>Até 21 dias úteis, contados da assinatura do contrato e do pagamento da entrada. O prazo pode variar conforme a resposta dos órgãos.</p></details>
       <details><summary>E se não der certo?</summary><p>A 2ª parcela só é cobrada depois da comprovação da baixa das restrições. O resultado depende da resposta dos órgãos.</p></details>
       <details><summary>Tem garantia?</summary><p>Sim: 3 meses após a conclusão, nos termos do contrato.</p></details>
       <details><summary>Posso desistir?</summary><p>Pode. Em até 7 dias após contratar você desiste e recebe de volta o que pagou (art. 49 do Código de Defesa do Consumidor). É só avisar pelo WhatsApp ou por e-mail.</p></details>
-      <details><summary>É seguro pagar por Pix aqui?</summary><p>O Pix é gerado pelo Mercado Pago. No app do banco, o recebedor pode aparecer como Mercado Pago ou como 62.197.923 Valdir de Melo Oliveira Junior, titular do CNPJ da Remove Nome.</p></details>
+      <details><summary>É seguro pagar por Pix aqui?</summary><p>Sim. O Pix cai na conta da Remove Nome no Mercado Pago. No app do seu banco, o recebedor aparece como 62.197.923 Valdir de Melo Oliveira Junior (titular do CNPJ da Remove Nome), banco Mercado Pago. Assim que o pagamento é confirmado, você assina o contrato na mesma página e recebe a sua via por e-mail.</p></details>
     </div>
-    <img class="folder" id="folder" hidden loading="lazy" src="acao-limpa-nome.jpg" alt="Folder da Ação Limpa Nome" onerror="this.remove()">
+    <img class="folder" id="folder" hidden loading="lazy" alt="Folder da Ação Limpa Nome">
   </div>
 </main>
 
@@ -708,10 +708,19 @@ var FOLDER_ATE_MS = Date.parse(FOLDER_ATE) || 0;
     }
     tickAcao();
   }
+  // Folder da ação: CPF usa acao-limpa-nome.jpg; CNPJ usa acao-limpa-nome-cnpj.jpg.
+  // Se o arquivo da empresa ainda não estiver no site, o folder some na opção CNPJ (não mostra o valor de CPF).
+  function atualizarFolder(aberta) {
+    var fo = $('folder'); if (!fo) return;
+    var chaveF = (ehPJ() ? 'acao-limpa-nome-cnpj.jpg' : 'acao-limpa-nome.jpg') + '?v=' + (CFG.acaoFim || 0);
+    if (fo.getAttribute('data-v') !== chaveF) { fo.setAttribute('data-v', chaveF); fo.removeAttribute('data-erro'); fo.src = chaveF; }
+    fo.hidden = !aberta || fo.getAttribute('data-erro') === chaveF;
+  }
+  $('folder').addEventListener('error', function () { this.setAttribute('data-erro', this.getAttribute('data-v') || ''); this.hidden = true; });
   function tickAcao() {
     var aberta = !!acaoAberta() && !!CFG.acaoRotulo;
     $('iCal').hidden = !aberta; $('info').classList.toggle('so', !aberta);
-    var fo = $('folder'); if (fo) { if (CFG.acaoFim && fo.getAttribute('data-v') !== String(CFG.acaoFim)) { fo.setAttribute('data-v', String(CFG.acaoFim)); fo.src = 'acao-limpa-nome.jpg?v=' + CFG.acaoFim; } fo.hidden = !aberta; }
+    atualizarFolder(aberta);
     if (!CFG.acaoFim || !CFG.acaoRotulo) { $('urg').hidden = true; $('ofPrazo').textContent = ''; return; }
     $('urg').hidden = false;
     var s = Math.floor((CFG.acaoFim - agora()) / 1000);
@@ -761,6 +770,7 @@ var FOLDER_ATE_MS = Date.parse(FOLDER_ATE) || 0;
     msg('mCpf', ''); $('cpf').classList.remove('err');
     if (!manter) { $('cpf').value = ''; try { $('cpf').focus({ preventScroll: true }); } catch (e) {} }
     if (etapa === 'eCpf') aplicarPrecos(pj);
+    tickAcao();
   }
   $('tCPF').addEventListener('click', function () { if (TIPO !== 'CPF') setTipo('CPF'); });
   $('tCNPJ').addEventListener('click', function () { if (TIPO !== 'CNPJ') setTipo('CNPJ'); });
